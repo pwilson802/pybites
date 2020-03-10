@@ -16,23 +16,35 @@ def _cap_str_to_mln_float(cap):
        - if 'M' in cap value, strip it off and return value as float,
        - if 'B', strip it off and multiple by 1,000 and return
          value as float"""
-    pass
+    if cap == 'n/a':
+        return 0
+    cap = cap.replace('$', '')
+    if 'M' in cap:
+        return float(cap.replace('M', ''))
+    elif 'B' in cap:
+        return float(cap.replace('B', '')) * 1000
 
 
 def get_industry_cap(industry):
     """Return the sum of all cap values for given industry, use
        the _cap_str_to_mln_float to parse the cap values,
        return a float with 2 digit precision"""
-    pass
+    return sum([_cap_str_to_mln_float(x['cap']) 
+                for x in data if x['industry'] == industry])
 
 
 def get_stock_symbol_with_highest_cap():
     """Return the stock symbol (e.g. PACD) with the highest cap, use
        the _cap_str_to_mln_float to parse the cap values"""
-    pass
+    data.sort(key=lambda k: _cap_str_to_mln_float(k['cap']))
+    return data[-1]['symbol']
+    
 
 
 def get_sectors_with_max_and_min_stocks():
     """Return a tuple of the sectors with most and least stocks,
        discard n/a"""
-    pass
+    counted_sectors = Counter([x['sector'] for x in data if x['sector'] != 'n/a'])
+    most_stock = counted_sectors.most_common(1)[0][0]
+    least_stock = counted_sectors.most_common()[-1][0]
+    return (most_stock, least_stock)
