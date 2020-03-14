@@ -13,7 +13,6 @@ urlretrieve(
 # you can use this constant as key to the yyyymm:count dict
 YEAR_MONTH = '{y}-{m:02d}'
 
-
 def get_min_max_amount_of_commits(commit_log: str = commits,
                                   year: int = None) -> (str, str):
     """
