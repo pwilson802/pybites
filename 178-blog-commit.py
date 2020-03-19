@@ -17,7 +17,7 @@ def get_min_max_amount_of_commits(commit_log: str = commits,
                                   year: int = None) -> (str, str):
     """
     Calculate the amount of inserts / deletes per month from the
-    provided commit log.
+    provided commit log
 
     Takes optional year arg, if provided only look at lines for
     that year, if not, use the entire file.
